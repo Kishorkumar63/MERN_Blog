@@ -31,7 +31,7 @@ export const Header = () => {
           <FaMoon />
         </Button>
         <Link to="/sigin">
-          <Button gradientDuoTone="purpleToBlue">SignIn</Button>
+          <Button gradientDuoTone="purpleToBlue" outline>SignIn</Button>
         </Link>
         <Navbar.Toggle />
       </div>
