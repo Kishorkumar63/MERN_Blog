@@ -31,7 +31,9 @@ export const Header = () => {
           <FaMoon />
         </Button>
         <Link to="/sigin">
-          <Button gradientDuoTone="purpleToBlue" outline>SignIn</Button>
+          <Button gradientDuoTone="purpleToBlue" outline>
+            SignIn
+          </Button>
         </Link>
         <Navbar.Toggle />
       </div>
@@ -40,11 +42,11 @@ export const Header = () => {
           <Link to="/">Home</Link>
         </Navbar.Link>
 
-        <Navbar.Link active={path === "/about"}  as={"div"}>
+        <Navbar.Link active={path === "/about"} as={"div"}>
           <Link to="/about">About</Link>
         </Navbar.Link>
 
-        <Navbar.Link active={path === "/projects"}  as={"div"}>
+        <Navbar.Link active={path === "/projects"} as={"div"}>
           <Link to="/Projects">Projects</Link>
         </Navbar.Link>
       </Navbar.Collapse>
