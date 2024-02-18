@@ -1,12 +1,10 @@
-const express=require("express")
-const app=express()
+const express = require("express");
+const app = express();
+const dotenv = require("dotenv");
+const path = require("path");
 
+dotenv.config({ path: path.join(__dirname, "env/config.env") });
 
-
-
-
-
-
-app.listen(8000,(req,rs)=>{
-    console.log("server running");
-})
+app.listen(process.env.PORT, (req, rs) => {
+  console.log(`server running ${process.env.PORT}`);
+});
