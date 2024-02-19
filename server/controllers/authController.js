@@ -1,6 +1,7 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const { errorHandler } = require("../utils/error");
+const jwt=require("jsonwebtoken")
 
 exports.Signup = async (req, res, next) => {
   const { username, email, password } = req.body;
@@ -18,4 +19,20 @@ exports.Signup = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+};
+
+exports.Signin = async (req, res, next) => {
+  const { email, password } = req.body;
+  const validUser=await User.findOne({email})
+  if(!validUser)
+  {
+    return next(errorHandler(402,"User Not Found"))
+  }
+  const valiPassword=await bcrypt.compare(password,validUser.password)
+  if(!valiPassword)
+  {
+    return next(errorHandler(402,"not Credential User"))
+  }
+  const token=await jwt.sign(validUser._id,{process.env.JWT_SECERET})
+
 };
