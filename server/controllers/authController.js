@@ -23,7 +23,8 @@ exports.Signup = async (req, res, next) => {
 
 exports.Signin = async (req, res, next) => {
   const { email, password } = req.body;
-  const validUser=await User.findOne({email})
+  try {
+    const validUser=await User.findOne({email})
   if(!validUser)
   {
     return next(errorHandler(402,"User Not Found"))
@@ -31,8 +32,14 @@ exports.Signin = async (req, res, next) => {
   const valiPassword=await bcrypt.compare(password,validUser.password)
   if(!valiPassword)
   {
-    return next(errorHandler(402,"not Credential User"))
+    return next(errorHandler(402,"Inva;id Password"))
   }
-  const token=await jwt.sign(validUser._id,{process.env.JWT_SECERET})
+  const token=await jwt.sign({id:validUser._id},process.env.JWT_SECERET)
+  const {password:pass,...reset}=validUser._doc
+    res.status(200).cookie("Acces_token",token,{httpOnly:true}).json(reset)
+  } catch (error) {
+    next(error)
+  }
+  
 
 };
