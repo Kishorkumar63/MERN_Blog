@@ -1,12 +1,12 @@
 import { Label, TextInput, Button, Alert, Spinner } from "flowbite-react";
 import { useState } from "react";
-import { Link ,useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Signup = () => {
   const [formData, setFormData] = useState({});
   const [errorMessage, setErrorMessage] = useState(null);
   const [loading, setLoading] = useState(false);
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
   };
@@ -28,13 +28,12 @@ export const Signup = () => {
         return setErrorMessage(data.message);
       }
       setLoading(false);
-      if(res.ok)
-      {
-        navigate("/signin")
+      if (res.ok) {
+        navigate("/signin");
       }
     } catch (error) {}
   };
-  console.log(formData);
+  // console.log(formData);
   return (
     <div className="min-h-screen mt-20">
       <div className="flex p-3 max-w-3xl mx-auto  flex-col md:flex-row md:items-center gap-5">
