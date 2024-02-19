@@ -1,7 +1,7 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const { errorHandler } = require("../utils/error");
-const jwt =require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
 
 exports.Signup = async (req, res, next) => {
   const { username, email, password } = req.body;
@@ -25,18 +25,22 @@ exports.Signin = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const validUser = await User.findOne({ email });
-    if(!validUser)
-    {
-      return next(errorHandler(404,"User Not Found !"))
-
+    if (!validUser) {
+      return next(errorHandler(404, "User Not Found !"));
     }
-    const validPassword=await  bcrypt.compare(password,User.validate.password)
-    if(!validPassword) return next(errorHandler(404,"Wrong Credential!"))
+    const validPassword = await bcrypt.compare(
+      password,
+      User.validate.password
+    );
+    if (!validPassword) return next(errorHandler(404, "Wrong Credential!"));
 
-const token=jwt.sign({id:validUser._id},process.env.JWT_SECRET)
-  
-  
-  
+    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
+    res.cokkie("token", token, {
+      htpOnly: true,
+      expires: new Date(Date.now) + 24 * 60 * 60 * 1000,
+    }).status(200).json({
+      validUser
+    })
   } catch (error) {
     next(error);
   }
