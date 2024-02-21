@@ -7,6 +7,8 @@ import { Dashboard } from "./pages/Dashboard";
 import { Projects } from "./pages/Projects";
 import { Header } from "./compnents/Header";
 
+import FooterCon  from "./compnents/FooterCon";
+
 function App() {
   return (
     <BrowserRouter>
@@ -19,6 +21,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/projects" element={<Projects />} />
       </Routes>
+      <FooterCon />
     </BrowserRouter>
   );
 }

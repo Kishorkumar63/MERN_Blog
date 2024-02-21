@@ -1,7 +1,7 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const { errorHandler } = require("../utils/error");
-const jwt = require("jsonwebtoken");
+const jwt=require("jsonwebtoken")
 
 exports.Signup = async (req, res, next) => {
   const { username, email, password } = req.body;
@@ -24,6 +24,7 @@ exports.Signup = async (req, res, next) => {
 exports.Signin = async (req, res, next) => {
   const { email, password } = req.body;
   try {
+<<<<<<< HEAD
     const validUser = await User.findOne({ email });
     if (!validUser) {
       return next(errorHandler(404, "User Not Found !"));
@@ -44,4 +45,24 @@ exports.Signin = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+=======
+    const validUser=await User.findOne({email})
+  if(!validUser)
+  {
+    return next(errorHandler(402,"User Not Found"))
+  }
+  const valiPassword=await bcrypt.compare(password,validUser.password)
+  if(!valiPassword)
+  {
+    return next(errorHandler(402,"Inva;id Password"))
+  }
+  const token=await jwt.sign({id:validUser._id},process.env.JWT_SECERET)
+  const {password:pass,...reset}=validUser._doc
+    res.status(200).cookie("Acces_token",token,{httpOnly:true}).json(reset)
+  } catch (error) {
+    next(error)
+  }
+  
+
+>>>>>>> b85e7a0d57b0aa1261c0b0a14fcdadea87cd1fe1
 };
