@@ -24,28 +24,6 @@ exports.Signup = async (req, res, next) => {
 exports.Signin = async (req, res, next) => {
   const { email, password } = req.body;
   try {
-<<<<<<< HEAD
-    const validUser = await User.findOne({ email });
-    if (!validUser) {
-      return next(errorHandler(404, "User Not Found !"));
-    }
-    const validPassword = await bcrypt.compare(
-      password,
-      User.validate.password
-    );
-    if (!validPassword) return next(errorHandler(404, "Wrong Credential!"));
-
-    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
-    res.cokkie("token", token, {
-      htpOnly: true,
-      expires: new Date(Date.now) + 24 * 60 * 60 * 1000,
-    }).status(200).json({
-      validUser
-    })
-  } catch (error) {
-    next(error);
-  }
-=======
     const validUser=await User.findOne({email})
   if(!validUser)
   {
@@ -64,5 +42,4 @@ exports.Signin = async (req, res, next) => {
   }
   
 
->>>>>>> b85e7a0d57b0aa1261c0b0a14fcdadea87cd1fe1
 };
