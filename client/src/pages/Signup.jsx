@@ -31,7 +31,9 @@ export const Signup = () => {
       if (res.ok) {
         navigate("/signin");
       }
-    } catch (error) {}
+    } catch (error) {
+      setErrorMessage(error)
+    }
   };
   // console.log(formData);
   return (

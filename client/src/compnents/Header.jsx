@@ -30,7 +30,7 @@ export const Header = () => {
         <Button className="w-12 h-10 hidden sm:inline " color="gray">
           <FaMoon />
         </Button>
-        <Link to="/sigin">
+        <Link to="/signin">
           <Button gradientDuoTone="purpleToBlue" outline>
             SignIn
           </Button>
