@@ -6,8 +6,7 @@ import { signInSuccess,signInFaile,signInStart } from "../slices/userSlice";
 export const Signin = () => {
   const {error:errorMessage,loading}=useSelector(state=>state.user)
   const [formData, setFormData] = useState({});
-  // const [errorMessage, setErrorMessage] = useState(null);
-  // const [loading, setLoading] = useState(false);
+  
   const navigate = useNavigate();
   const dispatch=useDispatch()
   const handleChange = (e) => {
@@ -16,12 +15,11 @@ export const Signin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if ( !formData.email || !formData.password) {
-      return setErrorMessage("Please fill ou all fields");
+      return dispatch(signInFaile(("Please fill ou all fields")));
     }
     try {
       dispatch(signInStart())
-      setLoading(true);
-      setErrorMessage(null);
+     
       const res = await fetch("api/auth/signin", {
         method: "POST",
         headers: { "Content-type": "application/json" },
@@ -31,8 +29,9 @@ export const Signin = () => {
       if (data.success === false) {
         dispatch(signInFaile(data.message))
       }
-      setLoading(false);
+     
       if (res.ok) {
+        dispatch(signInSuccess(data))
         navigate("/");
       }
     } catch (error) {

@@ -30,7 +30,7 @@ exports.Signin = async (req, res, next) => {
     }
     const valiPassword = await bcrypt.compare(password, validUser.password);
     if (!valiPassword) {
-      return next(errorHandler(402, "Inva;id Password"));
+      return next(errorHandler(402, "Invalid Password"));
     }
     const token = await jwt.sign(
       { id: validUser._id },
