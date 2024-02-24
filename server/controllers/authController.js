@@ -45,3 +45,45 @@ exports.Signin = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.Google = async (req, res, next) => {
+  const { name, email, googlePhotoUrl } = req.body;
+  if (!name || !email || username === "" || email === "") {
+    return next(errorHandler(400, "All fields are required"));
+  }
+  try {
+    const user = await User.findOne({ email });
+    if (user) {
+      const token = await jwt.sign({ id: user._id }, process.env.JWT_SECERET);
+      const { password, ...rest } = user._doc;
+      res
+        .status(200)
+        .cookie("token", token, {
+          httpOnly: true,
+        })
+        .json(reset);
+    } else {
+      const generatePassword =
+        Math.random().toString(36).slice(-8) +
+        Math.random().toString(36).slice(-8);
+      const hashPassword = bcrypt.hash(generatePassword, 10);
+      const newUser=await User.Create({
+        username:name.toLowerCase().split(" ").join('')+Math.random().toString(9).slice(-4)
+        email,
+        password:hashPassword,
+       profilePicture: googlePhotoUrl
+
+      })
+      const token=jwt.sign({id:newUser._id},process.env.JWT_SECERET)
+      const { password, ...rest } = user._doc;
+      res
+        .status(200)
+        .cookie("token", token, {
+          httpOnly: true,
+        })
+        .json(rest);
+    }
+  } catch (error) {
+    next(error);
+  }
+};

@@ -2,24 +2,25 @@ import { Label, TextInput, Button, Alert, Spinner } from "flowbite-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { signInSuccess,signInFaile,signInStart } from "../slices/userSlice";
+import { signInSuccess, signInFaile, signInStart } from "../slices/userSlice";
+import OAuth from "../compnents/OAuth";
 export const Signin = () => {
-  const {error:errorMessage,loading}=useSelector(state=>state.user)
+  const { error: errorMessage, loading } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({});
-  
+
   const navigate = useNavigate();
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if ( !formData.email || !formData.password) {
-      return dispatch(signInFaile(("Please fill ou all fields")));
+    if (!formData.email || !formData.password) {
+      return dispatch(signInFaile("Please fill ou all fields"));
     }
     try {
-      dispatch(signInStart())
-     
+      dispatch(signInStart());
+
       const res = await fetch("api/auth/signin", {
         method: "POST",
         headers: { "Content-type": "application/json" },
@@ -27,15 +28,15 @@ export const Signin = () => {
       });
       const data = await res.json();
       if (data.success === false) {
-        dispatch(signInFaile(data.message))
+        dispatch(signInFaile(data.message));
       }
-     
+
       if (res.ok) {
-        dispatch(signInSuccess(data))
+        dispatch(signInSuccess(data));
         navigate("/");
       }
     } catch (error) {
-      dispatch(signInFaile(error.message))
+      dispatch(signInFaile(error.message));
     }
   };
   // console.log(formData);
@@ -66,7 +67,6 @@ export const Signin = () => {
             className="flex flex-col gap-4 "
             onSubmit={handleSubmit}
           >
-          
             <div className="">
               <Label value="Your email" />
               <TextInput
@@ -99,6 +99,7 @@ export const Signin = () => {
                 "Sign Up"
               )}
             </Button>
+            <OAuth />
           </form>
           <div className="flex gap-2 text-sm mt-5">
             <span>Dont Have an Account </span>
