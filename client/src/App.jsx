@@ -7,7 +7,7 @@ import { Dashboard } from "./pages/Dashboard";
 import { Projects } from "./pages/Projects";
 import { Header } from "./compnents/Header";
 
-import FooterCon  from "./compnents/FooterCon";
+import FooterCon from "./compnents/FooterCon";
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
         <Route path="/About" element={<About />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dash" element={<Dashboard />} />
         <Route path="/projects" element={<Projects />} />
       </Routes>
       <FooterCon />
