@@ -48,11 +48,11 @@ exports.Signin = async (req, res, next) => {
 
 exports.Google = async (req, res, next) => {
   const { name, email, googlePhotoUrl } = req.body;
-  if (!name || !email || username === "" || email === "") {
+  if (!name || !email || name === "" || email === "") {
     return next(errorHandler(400, "All fields are required"));
   }
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({email});
     if (user) {
       const token = await jwt.sign({ id: user._id }, process.env.JWT_SECERET);
       const { password, ...rest } = user._doc;
@@ -61,13 +61,13 @@ exports.Google = async (req, res, next) => {
         .cookie("token", token, {
           httpOnly: true,
         })
-        .json(reset);
+        .json(rest);
     } else {
       const generatePassword =
         Math.random().toString(36).slice(-8) +
         Math.random().toString(36).slice(-8);
-      const hashPassword = bcrypt.hash(generatePassword, 10);
-      const newUser = await User.Create({
+      const hashPassword = await bcrypt.hash(generatePassword, 10);
+      const newUser = new User({
         username:
           name.toLowerCase().split(" ").join("") +
           Math.random().toString(9).slice(-4),
@@ -75,6 +75,7 @@ exports.Google = async (req, res, next) => {
         password: hashPassword,
         profilePicture: googlePhotoUrl,
       });
+      await newUser.save();
       const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECERET);
       const { password, ...rest } = user._doc;
       res
