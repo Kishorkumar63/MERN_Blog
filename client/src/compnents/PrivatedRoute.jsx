@@ -2,7 +2,7 @@
 import { useSelector } from 'react-redux'
 import { Outlet ,Navigate} from 'react-router-dom'
 
-export const PrivatedRoute = () => {
+export const PrivatedRoute = ()=> {
 
     const {currentUser}=useSelector(state=>state.user)
   return (
