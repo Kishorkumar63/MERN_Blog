@@ -2,10 +2,12 @@ import { Avatar, Button, Dropdown, Navbar, TextInput } from "flowbite-react";
 import { Link, useLocation } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FaMoon } from "react-icons/fa";
-import {useSelector} from "react-redux"
+import { useSelector, useDispatch } from "react-redux";
+import { toggleTheme } from "../slices/theme/themeSlice";
 export const Header = () => {
+  const dispatch = useDispatch();
   const path = useLocation().pathname;
-  const {currentUser}=useSelector(state=>state.user)
+  const { currentUser } = useSelector((state) => state.user);
   return (
     <Navbar className="border-b-2">
       <Link
@@ -29,36 +31,42 @@ export const Header = () => {
         <AiOutlineSearch />
       </Button>
       <div className="flex gap-2  md:order-2">
-        <Button className="w-12 h-10 hidden sm:inline " color="gray">
+        <Button
+          className="w-12 h-10 hidden sm:inline "
+          color="gray"
+          pill
+          onClick={() => dispatch(toggleTheme())}
+        >
           <FaMoon />
         </Button>
-        {currentUser? (
-          <Dropdown arrowIcon={false}
-          inline
-          label={
-            <Avatar alt="user"
-            img={currentUser.profilePicture}
-            rounded
-            />
-          }
+        {currentUser ? (
+          <Dropdown
+            arrowIcon={false}
+            inline
+            label={
+              <Avatar alt="user" img={currentUser.profilePicture} rounded />
+            }
           >
-<Dropdown.Header>
-  <span className="block text-sm">@{currentUser.username}</span>
-  <span className="block text-sm font-medium truncate">{currentUser.email}</span>
- 
-</Dropdown.Header>
-<Link to="/dash?tab=profile">
-  <Dropdown.Item>Profile</Dropdown.Item>
-</Link>
-<Dropdown.Divider/>
-<Dropdown.Item>Sign Up</Dropdown.Item>
+            <Dropdown.Header>
+              <span className="block text-sm">@{currentUser.username}</span>
+              <span className="block text-sm font-medium truncate">
+                {currentUser.email}
+              </span>
+            </Dropdown.Header>
+            <Link to="/dash?tab=profile">
+              <Dropdown.Item>Profile</Dropdown.Item>
+            </Link>
+            <Dropdown.Divider />
+            <Dropdown.Item>Signout</Dropdown.Item>
           </Dropdown>
-        ):  ( <Link to="/signin">
-          <Button gradientDuoTone="purpleToBlue" outline>
-            SignIn
-          </Button>
-        </Link>)}
-     
+        ) : (
+          <Link to="/signin">
+            <Button gradientDuoTone="purpleToBlue" outline>
+              SignIn
+            </Button>
+          </Link>
+        )}
+
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse>
