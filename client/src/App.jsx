@@ -8,6 +8,7 @@ import { Projects } from "./pages/Projects";
 import { Header } from "./compnents/Header";
 
 import FooterCon from "./compnents/FooterCon";
+import { PrivatedRoute } from "./compnents/PrivatedRoute";
 
 function App() {
   return (
@@ -18,7 +19,9 @@ function App() {
         <Route path="/About" element={<About />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/dash" element={<Dashboard />} />
+        <Route element={<PrivatedRoute />}>
+          <Route path="/dash" element={<Dashboard />} />
+        </Route>
         <Route path="/projects" element={<Projects />} />
       </Routes>
       <FooterCon />
