@@ -3,6 +3,7 @@ const app = express();
 const dotenv = require("dotenv");
 const path = require("path");
 const connectDatabase = require("./env/DB");
+const CP = require("cookie-parser");
 
 //Routes
 const userRoute = require("./routes/userRoute");
@@ -10,7 +11,9 @@ const authRoute = require("./routes/authRoute");
 dotenv.config({ path: path.join(__dirname, "env/config.env") });
 
 connectDatabase();
+
 app.use(express.json());
+app.use(CP());
 app.use("/api/user", userRoute);
 app.use("/api/auth", authRoute);
 
