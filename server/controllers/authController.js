@@ -89,56 +89,51 @@ exports.Google = async (req, res, next) => {
     next(error);
   }
 };
-
-exports.UpdateUser = async (req, res, next) => {
-  if (req.user._id !== req.params.userId) {
+exports.updateUser = async (req, res, next) => {
+  if (req.user.id !== req.params.userId) {
+    return next(errorHandler(403, "You are not allowed to update this user"));
+  }
+  if (req.body.password) {
     if (req.body.password.length < 6) {
-      return next(
-        errorHandler(400, "you are not allowed to upadate this user")
-      );
+      return next(errorHandler(400, "Password must be at least 6 characters"));
     }
-
-    req.body.password = bcrypt.hash(req.body.password, 10);
+    req.body.password = bcryptjs.hashSync(req.body.password, 10);
   }
   if (req.body.username) {
     if (req.body.username.length < 7 || req.body.username.length > 20) {
       return next(
-        errorHandler(400, "Username must be between 7 and 20 character")
+        errorHandler(400, "Username must be between 7 and 20 characters")
       );
     }
-    if (req.body.username.includes("")) {
-      return next(
-        errorHandler(400, "Username must be between 7 and 20 character")
-      );
-    }
-    if (req.body.username !== req.body.username.toLowerCase()) {
+    if (req.body.username.includes(" ")) {
       return next(errorHandler(400, "Username cannot contain spaces"));
     }
-    if (req.body.username.match(/^[a-zA-Z0-9]+$/)) {
+    if (req.body.username !== req.body.username.toLowerCase()) {
+      return next(errorHandler(400, "Username must be lowercase"));
+    }
+    if (!req.body.username.match(/^[a-zA-Z0-9]+$/)) {
       return next(
         errorHandler(400, "Username can only contain letters and numbers")
       );
     }
-
-    try {
-      const username = await User.findByIdAndUpdate(
-        req.params.userId,
-        {
-          $set: {
-            username: req.body.username,
-            email: req.body.email,
-            profilePicture: req.body.profilePicture,
-            password: req.body.password,
-          },
+  }
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.userId,
+      {
+        $set: {
+          username: req.body.username,
+          email: req.body.email,
+          profilePicture: req.body.profilePicture,
+          password: req.body.password,
         },
-        {
-          new: true,
-        }
-      );
-      const { password, ...rest } = updatedUser._doc;
-      res.status(200).json(rest);
-    } catch (error) {
-      next(error);
-    }
+      },
+      { new: true }
+    );
+    const { password, ...rest } = updatedUser._doc;
+    res.status(200).json(rest);
+  } catch (error) {
+    next(error);
+    console.log(error);
   }
 };

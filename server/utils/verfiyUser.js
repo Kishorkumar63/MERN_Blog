@@ -1,5 +1,5 @@
-const jwt = require("jwt");
-const errorHandler = require("./error");
+const jwt = require("jsonwebtoken");
+const {errorHandler }= require("./error");
 exports.verfiyToken = (req, res, next) => {
   const token = req.cookies.token;
   if (!token) {
