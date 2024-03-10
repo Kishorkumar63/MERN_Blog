@@ -7,23 +7,20 @@ export const Dashboard = () => {
   const [tab, setTab] = useState("");
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
-   const tabFromUrl=urlParams.get("tab")
-   if(tabFromUrl)
-   {
-    setTab(tabFromUrl)
-   }
-   console.log(tabFromUrl);
-  },[location.search]);
+    const tabFromUrl = urlParams.get("tab");
+    if (tabFromUrl) {
+      setTab(tabFromUrl);
+    }
+    console.log(tabFromUrl);
+  }, [location.search]);
   return (
     <div>
-      <h1>Dahsboard</h1>
-    <div className="">
-{/* Sidebar */}
-<DashSidebar/>
-
-    </div>
-    {/* Profile.... */}
-    {tab==="profile" && <DashProfile/>}
+       <div className="">
+        {/* Sidebar */}
+        <DashSidebar />
+      </div>
+      {/* Profile.... */}
+      {tab === "profile" && <DashProfile />}
     </div>
   );
 };
