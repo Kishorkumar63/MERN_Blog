@@ -21,6 +21,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "/img/kk.jpg",
     },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );

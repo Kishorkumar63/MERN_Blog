@@ -16,12 +16,12 @@ export const Signin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.email || !formData.password) {
-      return dispatch(signInFaile("Please fill ou all fields"));
+      return dispatch(signInFaile("Please fill our all fields"));
     }
     try {
       dispatch(signInStart());
 
-      const res = await fetch("api/auth/signin", {
+      const res = await fetch("/api/auth/signin", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(formData),
@@ -71,7 +71,7 @@ export const Signin = () => {
               <Label value="Your email" />
               <TextInput
                 type="email"
-                placeholder="name@com"
+                placeholder="name@.com"
                 id="email"
                 onChange={handleChange}
               />
@@ -104,7 +104,9 @@ export const Signin = () => {
 
           <div className="flex gap-2 text-sm mt-5">
             <span>Dont Have an Account </span>
-            <Link to={"/signup"}> Sign Up</Link>
+            <Link to={"/signup"} className="text-blue-500">
+              Sign Up
+            </Link>
           </div>
 
           {errorMessage && (

@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 exports.Signup = async (req, res, next) => {
   const { username, email, password } = req.body;
   if (username === "" || email === "" || password === "") {
-    next(errorHandler(400, "All fields are Required"));
+    return next(errorHandler(400, "All fields are Required"));
   }
   const hashPassword = await bcrypt.hash(password, 10);
   try {
@@ -33,14 +33,11 @@ exports.Signin = async (req, res, next) => {
       return next(errorHandler(402, "Invalid Password"));
     }
     const token = await jwt.sign(
-      { id: validUser._id },
+      { id: validUser._id, isAdmin: validUser.isAdmin },
       process.env.JWT_SECERET
     );
     const { password: pass, ...reset } = validUser._doc;
-    res
-      .status(200)
-      .cookie("Acces_token", token, { httpOnly: true })
-      .json(reset);
+    res.status(200).cookie("token", token, { httpOnly: true }).json(reset);
   } catch (error) {
     next(error);
   }
@@ -54,7 +51,10 @@ exports.Google = async (req, res, next) => {
   try {
     const user = await User.findOne({ email });
     if (user) {
-      const token = await jwt.sign({ id: user._id }, process.env.JWT_SECERET);
+      const token = await jwt.sign(
+        { id: user._id, isAdmin: user.isAdmin },
+        process.env.JWT_SECERET
+      );
       const { password, ...rest } = user._doc;
       res
         .status(200)
@@ -76,7 +76,10 @@ exports.Google = async (req, res, next) => {
         profilePicture: googlePhotoUrl,
       });
       await newUser.save();
-      const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECERET);
+      const token = jwt.sign(
+        { id: newUser._id, isAdmin: newUser.isAdmin },
+        process.env.JWT_SECERET
+      );
       const { password, ...rest } = user._doc;
       res
         .status(200)
