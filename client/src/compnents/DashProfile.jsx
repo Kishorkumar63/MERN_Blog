@@ -2,6 +2,7 @@ import { Alert, Button, Modal, TextInput } from "flowbite-react";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CircularProgressbar } from "react-circular-progressbar";
+import { Link } from "react-router-dom";
 import {
   getDownloadURL,
   getStorage,
@@ -22,7 +23,7 @@ import {
   deleteUserSuccess,
 } from "../slices/userSlice";
 const DashProfile = () => {
-  const { currentUser, error } = useSelector((state) => state.user);
+  const { currentUser, error, loading } = useSelector((state) => state.user);
   const [imageFile, setImageFile] = useState(null);
   const [imageFileUrl, setImageFileUrl] = useState(null);
   const filePickerRef = useRef();
@@ -229,8 +230,20 @@ const DashProfile = () => {
           onChange={handleChange}
         />
         <Button type="submit" gradientDuoTone="purpleToBlue" outline>
-          Update
+          {loading ? "loading..." : "Update"}
         </Button>
+        {currentUser.isAdmin && (
+          <Link to={"/create-post"}>
+            <Button
+              gradientDuoTone="purpleToBlue"
+              outline
+              className="w-full"
+              disabled={loading || imageFileUploading}
+            >
+              Create Post
+            </Button>
+          </Link>
+        )}
       </form>
       <div className="text-red-500 flex justify-between mt-5">
         <span onClick={() => setShowModal(true)} className="cursor-pointer">
