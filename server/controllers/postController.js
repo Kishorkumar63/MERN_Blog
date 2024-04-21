@@ -1,7 +1,7 @@
 const Post = require("../models/postModel");
 const { errorHandler } = require("../utils/error");
 
-exports.Create = async (req, res, next) => {
+exports.Createpost = async (req, res, next) => {
   if (!req.user.isAdmin) {
     return next(errorHandler(403, "You Are not allowed to create a Post"));
   }
