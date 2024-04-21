@@ -5,4 +5,4 @@ const router = express.Router();
 
 router.post("/create",verfiyToken)
 
-module.export=router
+module.exports=router
