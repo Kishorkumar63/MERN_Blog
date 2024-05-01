@@ -1,3 +1,5 @@
+// const Post = require("../models/postModel");
+
 const Post = require("../models/postModel");
 const { errorHandler } = require("../utils/error");
 
@@ -62,6 +64,7 @@ exports.getPosts = async (req, res, next) => {
     const lastMonthPosts = await Post.countDocuments({
       createdAt: { $gte: oneMonthAgo },
     });
+
     res.status(200).json({
       posts,
       totalPost,
