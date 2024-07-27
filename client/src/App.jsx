@@ -11,6 +11,7 @@ import FooterCon from "./compnents/FooterCon";
 import { PrivatedRoute } from "./compnents/PrivatedRoute";
 import { OnlyAdminPrivateRoute } from "./compnents/OnlyAdminPrivateRoute";
 import { CreatePost } from "./pages/CreatePost";
+import { UpdatePost } from "./pages/UpdatePost";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         </Route>
         <Route element={<OnlyAdminPrivateRoute />}>
           <Route path="/create-post" element={<CreatePost />} />
+          <Route path="/update-post/:postId" element={<UpdatePost/>} />
         </Route>
 
         <Route path="/projects" element={<Projects />} />
