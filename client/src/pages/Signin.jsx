@@ -5,9 +5,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { signInSuccess, signInFaile, signInStart } from "../slices/userSlice";
 import OAuth from "../compnents/OAuth";
 export const Signin = () => {
-  const { error: errorMessage, loading } = useSelector((state) => state.user);
+  const {  loading } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({});
-
+  const [errorMessage, setErrorMessage] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleChange = (e) => {
@@ -16,7 +16,7 @@ export const Signin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.email || !formData.password) {
-      return dispatch(signInFaile("Please fill our all fields"));
+      return setErrorMessage("Please fill our all fields");
     }
     try {
       dispatch(signInStart());

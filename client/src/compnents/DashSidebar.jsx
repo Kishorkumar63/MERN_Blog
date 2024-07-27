@@ -20,7 +20,7 @@ const DashSidebar = () => {
             <Link to="/dashboard?tab=dash">
               <Sidebar.Item active icon={HiChartPie} as="div">
                 Dashboard
-              </Sidebar.Item>
+                </Sidebar.Item>
             </Link>
 
             <Link to="/dashboard?tab=profile">

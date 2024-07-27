@@ -1,6 +1,12 @@
 import { Footer } from "flowbite-react";
 import { Link } from "react-router-dom";
-import { BsFacebook,BsInstagram,BsTwitter,BsGithub,BsDribbble} from "react-icons/bs";
+import {
+  BsFacebook,
+  BsInstagram,
+  BsTwitter,
+  BsGithub,
+  BsDribbble,
+} from "react-icons/bs";
 
 export default function FooterCon() {
   return (
@@ -91,7 +97,6 @@ export default function FooterCon() {
             <Footer.Icon href="#" icon={BsTwitter} />
             <Footer.Icon href="#" icon={BsGithub} />
             <Footer.Icon href="#" icon={BsDribbble} />
-         
           </div>
         </div>
       </div>

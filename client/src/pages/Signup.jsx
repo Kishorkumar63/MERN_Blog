@@ -13,7 +13,7 @@ export const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.username || !formData.email || !formData.password) {
-      return setErrorMessage("Please fill ou all fields");
+      return setErrorMessage("Please fill our all fields");
     }
     try {
       setLoading(true);
@@ -32,7 +32,7 @@ export const Signup = () => {
         navigate("/signin");
       }
     } catch (error) {
-      setErrorMessage(error)
+      setErrorMessage(error);
     }
   };
   // console.log(formData);

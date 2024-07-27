@@ -7,7 +7,7 @@ import themeReducer from "./src/slices/theme/themeSlice";
 
 const rootReducer = combineReducers({
   user: userReducer,
- theme: themeReducer,
+  theme: themeReducer,
 });
 const persistConfig = {
   key: "root",
