@@ -93,6 +93,7 @@ export const Dashpost = () => {
               </Table.HeadCell>
             </Table.Head>
             {userPosts.map((post) => (
+             <>
               <Table.Body className="divide-y">
                 <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                   <Table.Cell>
@@ -137,6 +138,7 @@ export const Dashpost = () => {
                   </Table.Cell>
                 </Table.Row>
               </Table.Body>
+              </>
             ))}
           </Table>
           {showMore && (
