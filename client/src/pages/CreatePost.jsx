@@ -37,7 +37,7 @@ export const CreatePost = () => {
 
           setImageFileUploadProgress(progress.toFixed(0));
         },
-        (error) => {
+        () => {
           setImageFileUploadError("Image Upload File");
           setImageFileUploadProgress(null);
         },

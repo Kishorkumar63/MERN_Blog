@@ -30,6 +30,8 @@ export const UpdatePost = () => {
           method: "GET",
         });
         const data = await res.json();
+        console.log(data);
+        
         if (!res.ok) {
           //console.log(data.message);
           setPublishError(data.message);
@@ -37,6 +39,8 @@ export const UpdatePost = () => {
         } else {
           setPublishError(null);
           setFormData(data.posts[0]);
+          console.log(formData);
+          
         }
       };
 

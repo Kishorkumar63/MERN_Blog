@@ -20,8 +20,8 @@ export const DashUsers = () => {
         const data = await res.json();
         console.log(data);
         if (res.ok) {
-          setUsers(data.posts);
-          if (data.posts.length < 9) {
+          setUsers(data.users);
+          if (data.users.length < 9) {
             setShowMore(false);
           }
         }
