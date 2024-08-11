@@ -12,6 +12,7 @@ import { PrivatedRoute } from "./compnents/PrivatedRoute";
 import { OnlyAdminPrivateRoute } from "./compnents/OnlyAdminPrivateRoute";
 import { CreatePost } from "./pages/CreatePost";
 import { UpdatePost } from "./pages/UpdatePost";
+import PostPage from "./pages/PostPage";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         </Route>
 
         <Route path="/projects" element={<Projects />} />
+        <Route path="/post/:postSlug" element={<PostPage />} />
       </Routes>
 
       <FooterCon />

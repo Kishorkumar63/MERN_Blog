@@ -50,11 +50,11 @@ export const DashUsers = () => {
       console.log(error.message);
     }
   };
-  const handleDeletePost = async () => {
+  const handleDeleteUser = async () => {
     setShowModal(false);
     try {
       const res = await fetch(
-        `/api/user/deleteuser/${UserIdDelete}/${currentUser._id}`,
+        `/api/user/delete/${UserIdDelete}`,
         {
           method: "DELETE",
         }
@@ -147,7 +147,7 @@ export const DashUsers = () => {
               Are you sure you want to delete this post?
             </h3>
             <div className="flex justify-center gap-4">
-              <Button color="failure" onClick={handleDeletePost}>
+              <Button color="failure" onClick={handleDeleteUser}>
                 Yes, I'm sure
               </Button>
               <Button color="gray" onClick={() => setShowModal(false)}>

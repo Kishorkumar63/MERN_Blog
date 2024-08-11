@@ -6,7 +6,7 @@ exports.Test = (req, res) => {
 };
 
 exports.deleteUser = async (req, res, next) => {
-  if (req.user.id !== req.params.userId) {
+  if (!req.user.isAdmin && req.user.id !== req.params.userId) {
     return next(errorHandler(402, "Your Are Not allowed to Delete this user"));
   }
   try {
