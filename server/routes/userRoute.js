@@ -16,6 +16,6 @@ router.put("/update/:userId", verfiyToken, updateUser);
 router.delete("/delete/:userId", verfiyToken, deleteUser);
 router.post("/signout", SignOut);
 router.get("/getusers", verfiyToken, getUsers);
-router.get("/:userId", getUser);
 
+router.get("/:userId", verfiyToken, getUser);
 module.exports = router;

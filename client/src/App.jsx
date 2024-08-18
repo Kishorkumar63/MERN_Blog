@@ -13,10 +13,12 @@ import { OnlyAdminPrivateRoute } from "./compnents/OnlyAdminPrivateRoute";
 import { CreatePost } from "./pages/CreatePost";
 import { UpdatePost } from "./pages/UpdatePost";
 import PostPage from "./pages/PostPage";
+import ScroolToTop from "./compnents/ScroolToTop";
 
 function App() {
   return (
     <BrowserRouter>
+      <ScroolToTop />
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />

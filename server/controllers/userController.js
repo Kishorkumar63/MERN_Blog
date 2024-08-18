@@ -78,3 +78,15 @@ exports.getUser = async (req, res, next) => {
     next(error);
   }
 };
+
+// exports.getUser = async (req, res, next) => {
+//   try {
+//     const user = await User.findById(req.params.userId);
+//     if (!user) {
+//       return errorHandler(next(404, "User Not Found"));
+//     }
+//     res.status(200).json(user);
+//   } catch (error) {
+//     next(error);
+//   }
+// };

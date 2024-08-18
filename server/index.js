@@ -9,6 +9,7 @@ const CP = require("cookie-parser");
 const userRoute = require("./routes/userRoute");
 const authRoute = require("./routes/authRoute");
 const postRoute = require("./routes/postRoute");
+const commentRoute = require("./routes/commentRoute");
 dotenv.config({ path: path.join(__dirname, "env/config.env") });
 
 connectDatabase();
@@ -18,6 +19,7 @@ app.use(CP());
 app.use("/api/user", userRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/post", postRoute);
+app.use("/api/comment", commentRoute);
 
 app.listen(process.env.PORT, (req, rs) => {
   console.log(`server running ${process.env.PORT}`);
