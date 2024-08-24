@@ -36,7 +36,7 @@ exports.Signin = async (req, res, next) => {
       { id: validUser._id, isAdmin: validUser.isAdmin },
       process.env.JWT_SECERET
     );
-    console.log(token);
+    //console.log(token);
     const { password: pass, ...reset } = validUser._doc;
     res.status(200).cookie("token", token, { httpOnly: true }).json(reset);
   } catch (error) {
