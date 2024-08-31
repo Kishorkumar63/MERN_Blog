@@ -128,7 +128,7 @@ const Comment = ({ comment, onLike, onDelete, onEdit }) => {
                     </button>
                     <button
                       type="button"
-                      onClick={() => onDelete(currentUser._id)}
+                      onClick={() => onDelete(comment._id)}
                       className="text-gray-400 hover hover:text-red-500"
                     >
                       Delete
