@@ -40,7 +40,7 @@ exports.likeComment = async (req, res, next) => {
       comment.numberofLikes += 1;
       comment.likes.push(req.user.id);
     } else {
-      comment.numberofLikes += 1;
+      comment.numberofLikes -= 1;
       comment.likes.splice(userIndex, 1);
     }
     await comment.save();
