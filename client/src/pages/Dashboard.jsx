@@ -4,6 +4,7 @@ import DashSidebar from "../compnents/DashSidebar";
 import DashProfile from "../compnents/DashProfile";
 import { Dashpost } from "../compnents/Dashpost";
 import { DashUsers } from "../compnents/DashUsers";
+import DashComments from "../compnents/DashComment";
 export const Dashboard = () => {
   const location = useLocation();
   const [tab, setTab] = useState("");
@@ -26,6 +27,7 @@ export const Dashboard = () => {
       {tab === "posts" && <Dashpost />}
       {/* Users */}
       {tab === "users" && <DashUsers />}
+      {tab === "comments" && <DashComments />}
     </div>
   );
 };
